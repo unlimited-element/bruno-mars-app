@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import { SpotifyApiContext } from 'react-spotify-api'
+import Cookies from 'js-cookie'
 
-function App() {
+import { SpotifyAuth, Scopes } from 'react-spotify-auth'
+import 'react-spotify-auth/dist/index.css'
+
+const App = () => {
+    const [token, setToken] = useState(Cookies.get("spotifyAuthToken"))
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='app'>
+      {token ? (
+        <SpotifyApiContext.Provider value={token}>
+          {/* Your Spotify Code here */}
+          <p>You are authorized with token: {token}</p>
+        </SpotifyApiContext.Provider>
+      ) : (
+        // Display the login page
+        <SpotifyAuth
+          redirectUri='http://localhost:3000/callback/'
+          clientID='6cea1e17d7fd45d39907384dabbca01f'
+          scopes={[Scopes.userReadPrivate, 'user-read-email']} // either style will work
+          onAccessToken={(token) => setToken(token)}
+        />
+      )}
     </div>
-  );
+  )
 }
-
-export default App;
+export default App
