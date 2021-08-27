@@ -1,29 +1,14 @@
-import React, { useState } from 'react'
-import { SpotifyApiContext } from 'react-spotify-api'
-import Cookies from 'js-cookie'
-
-import { SpotifyAuth, Scopes } from 'react-spotify-auth'
-import 'react-spotify-auth/dist/index.css'
-
+import React from 'react'
+import Home from '../src/components/home';
+import { BrowserRouter } from 'react-router-dom';
+import './App.css';
+// , Switch, Route
 const App = () => {
-    const [token, setToken] = useState(Cookies.get("spotifyAuthToken"))
+
   return (
-    <div className='app'>
-      {token ? (
-        <SpotifyApiContext.Provider value={token}>
-          {/* Your Spotify Code here */}
-          <p>You are authorized with token: {token}</p>
-        </SpotifyApiContext.Provider>
-      ) : (
-        // Display the login page
-        <SpotifyAuth
-          redirectUri='http://localhost:3000/callback/'
-          clientID='6cea1e17d7fd45d39907384dabbca01f'
-          scopes={[Scopes.userReadPrivate, 'user-read-email']} // either style will work
-          onAccessToken={(token) => setToken(token)}
-        />
-      )}
-    </div>
+  <BrowserRouter>
+    <Home />
+  </BrowserRouter>
   )
 }
 export default App
