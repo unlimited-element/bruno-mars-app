@@ -5,13 +5,9 @@ body {
 
 
 .MuiFormLabel-root.Mui-focused {
-  color: white !important;
+  color: black !important;
 }
 
 .MuiFormLabel-root {
   color: white !important;
-}
-
-.makeStyles-root-1 {
-  color: white;
 }

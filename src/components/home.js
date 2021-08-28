@@ -18,23 +18,22 @@ const useStyles = makeStyles((theme) => ({
       },
     },
     paperColor: {backgroundColor: '#FFD898'},
-    input: {
-      color: "white",
-    },
+    input: {color: "black"},
   }));
 
 const ValidationTextField = withStyles({
     root: {
       margin: 'auto',
       display: 'flex',
-      
-      '& input:valid + fieldset': {
+
+      // '& input:valid + fieldset': {
+      //   borderColor: 'green',
+      //   borderWidth: 2,
+      // },
+      '& input:invalid + fieldset': {
         borderColor: 'white',
         borderWidth: 2,
-      },
-      '& input:invalid + fieldset': {
-        borderColor: 'red',
-        borderWidth: 5,
+        borderLeftWidth: 6,
       },
       '& input:valid:focus + fieldset': {
         borderColor: 'white',
@@ -52,14 +51,14 @@ const Home = () => {
     return (
     <Container maxWidth="sm">
     <Paper className={classes.paperColor} elevation={3}>
-    <form className={classes.root} noValidate>
-    <ValidationTextField
+    <form className={classes.root} noValidate autoComplete="off">
+    <ValidationTextField 
         inputProps={{ className: classes.input }}
         className={classes.root}
         label="Bruno Mars Lyrics Here"
         required
         variant="outlined"
-        defaultValue="Success"
+        placeholder='Count on me like 123'
         id="validation-outlined-input"
         
       />

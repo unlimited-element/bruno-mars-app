@@ -1,18 +1,31 @@
 import React, {useState} from 'react';
-import { SpotifyApiContext } from 'react-spotify-api';
+import { SpotifyApiContext, Artist } from 'react-spotify-api';
 import Cookies from 'js-cookie';
 
 import { SpotifyAuth, Scopes } from 'react-spotify-auth';
 import 'react-spotify-auth/dist/index.css';
 
-const Auth = () => {
+const Auth = (props) => {
     const [token, setToken] = useState(Cookies.get("spotifyAuthToken"));
 
   return (
     <div className='app'>
       {token ? (
         <SpotifyApiContext.Provider value={token}>
-          {/* Your Spotify Code here */}
+          <Artist id={props.id}>
+        {({ data, loading, error }) =>
+          data ? (
+            <div>
+              <h1>{data.name}</h1>
+              <ul>
+                {data.genres.map(genre => (
+                  <li key={genre}>{genre}</li>
+                ))}
+              </ul>
+            </div>
+          ) : loading
+        }
+      </Artist>
           <p>You are authorized with token: {token}</p>
         </SpotifyApiContext.Provider>
       ) : (
